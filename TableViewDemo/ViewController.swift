@@ -21,6 +21,15 @@ class ViewController: UIViewController, UITableViewDataSource {
                       ("iOS Song X2", "Alice BB"),
                       ("iOS Song X3", "Alice CC")]
 
+    let webCourses = [("OSX Book 1", "John A"),
+        ("OSX Book 2", "John B"),
+        ("OSX Book 3", "John C"),
+        ("OSX DVD A", "Doe 1"),
+        ("OSX DVD B", "Doe 2"),
+        ("OSX DVD C", "Doe 3"),
+        ("OSX Song X1", "Alice AA"),
+        ("OSX Song X2", "Alice BB"),
+        ("OSX Song X3", "Alice CC")]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,19 +46,42 @@ class ViewController: UIViewController, UITableViewDataSource {
     // +----------------------------------------------+
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return devCourses.count
+        if section  == 0 {
+            return devCourses.count
+        } else {
+            return webCourses.count
+        }
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("myPrototypeCell", forIndexPath: indexPath) as UITableViewCell
-        let (courseTitle, courseAuthor) = devCourses[indexPath.row]
-        cell.textLabel?.text = courseTitle
+        
+        if indexPath.section == 0 {
+            let (courseTitle, courseAuthor) = devCourses[indexPath.row]
+            cell.textLabel?.text = courseTitle
+        } else {
+            let (courseTitle, courseAuthor) = webCourses[indexPath.row]
+            cell.textLabel?.text = courseTitle
+        }
         
         return cell
+    }
+    
+    // +--- UITableViewDataSource Optional Methods ---+
+    // +    - for customization                       +
+    // +----------------------------------------------+
+    
+    // Do NOT forget to select "group" in TableView Style
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "iOS Courses"
+        } else {
+            return "OSX Courses"
+        }
     }
 }
 
