@@ -60,13 +60,20 @@ class ViewController: UIViewController, UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = tableView.dequeueReusableCellWithIdentifier("myPrototypeCell", forIndexPath: indexPath) as UITableViewCell
         
+        // Do NOT forget to select "subtitle" in Table View Cell style for prototype cell
         if indexPath.section == 0 {
             let (courseTitle, courseAuthor) = devCourses[indexPath.row]
             cell.textLabel?.text = courseTitle
+            cell.detailTextLabel?.text = courseAuthor
         } else {
             let (courseTitle, courseAuthor) = webCourses[indexPath.row]
             cell.textLabel?.text = courseTitle
+            cell.detailTextLabel?.text = courseAuthor
         }
+        
+        // Retrieve an image as the cell ICON
+        var myICON = UIImage(named: "IconCell")
+        cell.imageView?.image = myICON
         
         return cell
     }
@@ -75,7 +82,7 @@ class ViewController: UIViewController, UITableViewDataSource {
     // +    - for customization                       +
     // +----------------------------------------------+
     
-    // Do NOT forget to select "group" in TableView Style
+    // Do NOT forget to select "group" in TableView Style in storyboard
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return "iOS Courses"
